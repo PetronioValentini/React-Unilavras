@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'IP_AQUI',
+  baseURL: 'http://apiunilavras.petroniovalentini.com.br:80',
 });

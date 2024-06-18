@@ -10,6 +10,12 @@ export default function Header() {
       <Link to="/">
         <FaHome size={24} />
       </Link>
+      <Link to="/login">
+        <FaUserAlt size={24} />
+      </Link>
+      <Link to="/logout">
+        <FaSignInAlt size={24} />
+      </Link>
     </Nav>
   );
 }
