@@ -13,7 +13,6 @@ export default function Produto({ match }) {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
-  const [senha, setSenha] = useState('');
   const [data, setData] = useState('');
 
   useEffect(() => {
@@ -52,10 +51,6 @@ export default function Produto({ match }) {
       formErros = true;
       toast.error('Campo preço deve ser positivo');
     }
-    if (senha === '') {
-      formErros = true;
-      toast.error('Campo token está vazio');
-    }
     // eslint-disable-next-line no-restricted-globals
     if (data === '' || isNaN(inputDate.getTime())) {
       formErros = true;
@@ -74,7 +69,6 @@ export default function Produto({ match }) {
         nome,
         descricao,
         preco,
-        senha,
         data,
       });
       toast.success('Produto atualizado com sucesso!');
@@ -119,16 +113,6 @@ export default function Produto({ match }) {
           onChange={(e) => setPreco(e.target.value)}
           placeholder="Digite seu preço"
         />
-
-        <Label htmlFor="senha">Token:</Label>
-        <Input
-          type="password"
-          id="senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="Digite seu token"
-        />
-
         <Label htmlFor="data">Data:</Label>
         <Input
           type="date"

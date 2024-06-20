@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaEdit, FaWindowClose } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { get } from 'lodash';
+import { FaEdit, FaWindowClose } from 'react-icons/fa';
 import {
   Title,
   ClientesContainer,
@@ -29,18 +28,11 @@ export default function Clientes() {
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    // eslint-disable-next-line no-alert
-    const token = prompt('Digite o token para excluir o cliente:');
     try {
-      await axios.delete(`/clientes/${id}/`, {
-        data: { senha: token },
-      });
+      await axios.delete(`/clientes/${id}/`);
       window.location.reload();
     } catch (error) {
-      const status = get(error, 'response.status', 0);
-      if (status === 401) {
-        toast.error('Token incorreto.');
-      }
+      toast.error('Erro');
     }
   };
 

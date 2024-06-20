@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { get } from 'lodash';
 import { isEmail } from 'validator';
 import PropTypes from 'prop-types';
@@ -15,11 +15,27 @@ export default function Cliente({ match }) {
   const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
   const [idade, setIdade] = useState('');
-  const [senha, setSenha] = useState('');
+
+  useEffect(() => {
+    async function loadCliente() {
+      try {
+        const response = await axios.get(`/clientes/${id}`);
+        setNome(response.data.nome);
+        setSobrenome(response.data.sobrenome);
+        setEmail(response.data.email);
+        setIdade(response.data.idade);
+      } catch (err) {
+        toast.error('Erro ao carregar os dados do cliente');
+      }
+    }
+
+    loadCliente();
+  }, [id]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     let formErrors = false;
+
     if (nome === '') {
       formErrors = true;
       toast.error('Campo nome está vazio');
@@ -52,10 +68,6 @@ export default function Cliente({ match }) {
       formErrors = true;
       toast.error('Campo idade deve ser positivo');
     }
-    if (senha === '') {
-      formErrors = true;
-      toast.error('Campo token está vazio');
-    }
     if (formErrors) return;
 
     try {
@@ -64,17 +76,12 @@ export default function Cliente({ match }) {
         sobrenome,
         email,
         idade,
-        senha,
       });
-      toast.success('Cliente Editado com sucesso!');
+      toast.success('Cliente editado com sucesso!');
       history.push('/');
     } catch (erro) {
       const errors = get(erro, 'response.status', []);
-      if (errors === 401) {
-        toast.error('Token incorreto.');
-      } else {
-        toast.error(errors);
-      }
+      toast.error(errors);
     }
   }
 
@@ -119,15 +126,6 @@ export default function Cliente({ match }) {
           placeholder="Digite sua idade"
         />
 
-        <Label htmlFor="senha">Token:</Label>
-        <Input
-          type="password"
-          id="senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="Digite seu token"
-        />
-
         <Button type="submit">Editar</Button>
       </Form>
     </Container>
@@ -135,5 +133,9 @@ export default function Cliente({ match }) {
 }
 
 Cliente.propTypes = {
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };

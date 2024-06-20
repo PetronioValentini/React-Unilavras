@@ -13,7 +13,6 @@ export default function ClientesRegister() {
   const [sobrenome, setSobrenome] = useState('');
   const [email, setEmail] = useState('');
   const [idade, setIdade] = useState('');
-  const [senha, setSenha] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -51,10 +50,7 @@ export default function ClientesRegister() {
       formErros = true;
       toast.error('Campo idade deve ser positivo');
     }
-    if (senha === '') {
-      formErros = true;
-      toast.error('Campo token esta vazio');
-    }
+
     if (formErros) return;
 
     try {
@@ -63,7 +59,6 @@ export default function ClientesRegister() {
         sobrenome,
         email,
         idade,
-        senha,
       });
       toast.success('Cliente registrado com sucesso!');
       history.push('/');
@@ -115,15 +110,6 @@ export default function ClientesRegister() {
           value={idade}
           onChange={(e) => setIdade(e.target.value)}
           placeholder="Digite sua idade"
-        />
-
-        <Label htmlFor="senha">Token:</Label>
-        <Input
-          type="password"
-          id="senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="Digite seu token"
         />
 
         <Button type="submit">Adicionar</Button>

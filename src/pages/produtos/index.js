@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-// eslint-disable-next-line prettier/prettier
 import { format } from 'date-fns';
-import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaWindowClose } from 'react-icons/fa';
 import {
@@ -32,18 +30,11 @@ export default function Produtos() {
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    // eslint-disable-next-line no-alert
-    const token = prompt('Digite o token para excluir o produto:');
     try {
-      await axios.delete(`/produtos/${id}/`, {
-        data: { senha: token },
-      });
+      await axios.delete(`/produtos/${id}/`);
       window.location.reload();
     } catch (error) {
-      const status = get(error, 'response.status', 0);
-      if (status === 401) {
-        toast.error('Token incorreto.');
-      }
+      toast.error('Erro');
     }
   };
 
