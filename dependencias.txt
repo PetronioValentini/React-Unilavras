@@ -56,5 +56,13 @@ npm install date-fns (FORMATAR DATA)
 
 npm i validator (VALIDAR EMAIL)
 
+npm i react-toastify (MANDA MENSAGENS DE ERROS)
+
+npm i redux react-redux (CRIA O ESTADO GLOBAL PARA LOGIN (VERIFICA SE ESTA LOGADO OU NAO ))
+
+npm i redux-saga
+
+npm i redux-persist (MESMO ATUALIZANDO A PAGINA PERSISTE NOS DADOS)
+
 
 
