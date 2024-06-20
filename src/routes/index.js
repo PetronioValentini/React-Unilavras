@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 import MyRoute from './myRoute';
 import Home from '../pages/home';
 import Clientes from '../pages/clientes';
+import Usuarios from '../pages/usuarios';
 import ClientesRegister from '../pages/clientesRegister';
 import ClientesEdit from '../pages/clientesEdit';
 import Produtos from '../pages/produtos';
@@ -17,6 +18,7 @@ export default function Routes() {
     <Switch>
       <MyRoute exact path="/" component={Home} />
       <MyRoute exact path="/clientes" component={Clientes} isClosed />
+      <MyRoute exact path="/usuarios" component={Usuarios} isClosed />
       <MyRoute
         exact
         path="/clientes/register/"

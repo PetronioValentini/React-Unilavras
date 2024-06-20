@@ -1,12 +1,16 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { get } from 'lodash';
 import { Title, Form } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 import * as actions from '../../store/modules/auth/actions';
 
-export default function Login() {
+export default function Login(props) {
   const dispatch = useDispatch();
+
+  const prevPath = get(props, 'location.state.prevPath', '/');
+
   const [usuario, setUsuario] = React.useState('');
   const [senha, setSenha] = React.useState('');
 
@@ -23,7 +27,7 @@ export default function Login() {
       toast.error('Campo senha esta vazio');
     }
     if (formErros) return;
-    dispatch(actions.loginRequest({ usuario, senha }));
+    dispatch(actions.loginRequest({ usuario, senha, prevPath }));
   };
 
   return (

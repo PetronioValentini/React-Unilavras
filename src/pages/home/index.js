@@ -15,6 +15,9 @@ export default function Home() {
         <Link to="/produtos">
           <Painel>Produtos</Painel>
         </Link>
+        <Link to="/usuarios">
+          <Painel>Usuarios</Painel>
+        </Link>
       </ButtonContainer>
     </Container>
   );
