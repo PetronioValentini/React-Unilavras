@@ -24,6 +24,10 @@ export default function Cliente({ match }) {
       formErrors = true;
       toast.error('Campo nome está vazio');
     }
+    if (nome.length < 3 || nome.length > 255) {
+      formErrors = true;
+      toast.error('Campo nome deve ter entre 3 e 255 caracteres');
+    }
     if (sobrenome === '') {
       formErrors = true;
       toast.error('Campo sobrenome está vazio');
@@ -39,6 +43,14 @@ export default function Cliente({ match }) {
     if (idade === '') {
       formErrors = true;
       toast.error('Campo idade está vazio');
+    }
+    if (idade > 120) {
+      formErrors = true;
+      toast.error('Campo idade deve ser menor que 120 anos');
+    }
+    if (idade < 0) {
+      formErrors = true;
+      toast.error('Campo idade deve ser positivo');
     }
     if (senha === '') {
       formErrors = true;

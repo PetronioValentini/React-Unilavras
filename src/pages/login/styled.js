@@ -15,9 +15,13 @@ export const Painel = styled.button`
   margin: 0 5px;
 `;
 
-export const ButtonContainer = styled.div`
+export const Form = styled.form`
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
-  max-width: 1000px;
-  margin: 0 auto;
+  flex-direction: column;
+  input {
+    margin-bottom: 20px;
+    height: 40px;
+    padding: 0 10px;
+  }
 `;

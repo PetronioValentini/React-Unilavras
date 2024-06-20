@@ -12,26 +12,47 @@ export default function ProdutosRegister() {
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
   const [senha, setSenha] = useState('');
+  const [data, setData] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
     let formErros = false;
+
+    const startDate = new Date('2000-01-01');
+    const endDate = new Date('2024-06-30');
+    const inputDate = new Date(data);
+
     if (nome === '') {
       formErros = true;
-      toast.error('Campo nome esta vazio');
+      toast.error('Campo nome está vazio');
     }
     if (descricao === '') {
       formErros = true;
-      toast.error('Campo descrição esta vazio');
+      toast.error('Campo descrição está vazio');
     }
     if (preco === '') {
       formErros = true;
-      toast.error('Campo preço esta vazio');
+      toast.error('Campo preço está vazio');
+    }
+    if (preco < 0) {
+      formErros = true;
+      toast.error('Campo preço deve ser positivo');
     }
     if (senha === '') {
       formErros = true;
-      toast.error('Campo token esta vazio');
+      toast.error('Campo token está vazio');
     }
+    // eslint-disable-next-line no-restricted-globals
+    if (data === '' || isNaN(inputDate.getTime())) {
+      formErros = true;
+      toast.error('Campo data está vazio ou inválido');
+    } else if (inputDate < startDate || inputDate > endDate) {
+      formErros = true;
+      toast.error(
+        'A data deve estar entre 1 de Janeiro de 2000 e 30 de Junho de 2024'
+      );
+    }
+
     if (formErros) return;
 
     try {
@@ -40,6 +61,7 @@ export default function ProdutosRegister() {
         descricao,
         preco,
         senha,
+        data,
       });
       toast.success('Produto registrado com sucesso!');
       history.push('/');
@@ -91,6 +113,15 @@ export default function ProdutosRegister() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           placeholder="Digite seu token"
+        />
+
+        <Label htmlFor="data">Data:</Label>
+        <Input
+          type="date"
+          id="data"
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+          placeholder="Digite a data"
         />
 
         <Button type="submit">Adicionar</Button>

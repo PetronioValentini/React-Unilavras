@@ -1,6 +1,6 @@
 // PERMITE APENAS O PATH EXATO
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import MyRoute from './myRoute';
 import Home from '../pages/home';
 import Clientes from '../pages/clientes';
@@ -15,7 +15,7 @@ import Login from '../pages/login';
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <MyRoute exact path="/" component={Home} />
       <MyRoute exact path="/clientes" component={Clientes} isClosed />
       <MyRoute
         exact
@@ -29,11 +29,11 @@ export default function Routes() {
         component={ClientesEdit}
         isClosed
       />
-      <Route exact path="/produtos" component={Produtos} />
-      <Route exact path="/produtos/register/" component={ProdutosRegister} />
-      <Route exact path="/produtos/edit/:id" component={ProdutosEdit} />
-      <Route exact path="/login" component={Login} />
-      <Route path="*" component={Page404} />
+      <MyRoute exact path="/produtos" component={Produtos} />
+      <MyRoute exact path="/produtos/register/" component={ProdutosRegister} />
+      <MyRoute exact path="/produtos/edit/:id" component={ProdutosEdit} />
+      <MyRoute exact path="/login" component={Login} />
+      <MyRoute path="*" component={Page404} />
     </Switch>
   );
 }

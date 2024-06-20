@@ -18,6 +18,11 @@ export default function ClientesRegister() {
   async function handleSubmit(e) {
     e.preventDefault();
     let formErros = false;
+
+    if (nome.length < 3 || nome.length > 255) {
+      formErros = true;
+      toast.error('Campo nome deve ter entre 3 e 255 caracteres');
+    }
     if (nome === '') {
       formErros = true;
       toast.error('Campo nome esta vazio');
@@ -37,6 +42,14 @@ export default function ClientesRegister() {
     if (idade === '') {
       formErros = true;
       toast.error('Campo idade esta vazio');
+    }
+    if (idade > 120) {
+      formErros = true;
+      toast.error('Campo idade deve ser menor que 120 anos');
+    }
+    if (idade < 0) {
+      formErros = true;
+      toast.error('Campo idade deve ser positivo');
     }
     if (senha === '') {
       formErros = true;

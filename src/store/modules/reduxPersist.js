@@ -6,7 +6,7 @@ export default (reducers) => {
     {
       key: 'API-UNILAVRAS',
       storage,
-      whitelist: ['example'],
+      whitelist: ['auth'],
     },
     reducers
   );
