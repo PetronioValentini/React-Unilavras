@@ -11,7 +11,6 @@ export default function ProdutosRegister() {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
-  const [senha, setSenha] = useState('');
   const [data, setData] = useState('');
 
   async function handleSubmit(e) {
@@ -38,10 +37,7 @@ export default function ProdutosRegister() {
       formErros = true;
       toast.error('Campo preço deve ser positivo');
     }
-    if (senha === '') {
-      formErros = true;
-      toast.error('Campo token está vazio');
-    }
+
     // eslint-disable-next-line no-restricted-globals
     if (data === '' || isNaN(inputDate.getTime())) {
       formErros = true;
@@ -60,7 +56,6 @@ export default function ProdutosRegister() {
         nome,
         descricao,
         preco,
-        senha,
         data,
       });
       toast.success('Produto registrado com sucesso!');
@@ -104,15 +99,6 @@ export default function ProdutosRegister() {
           value={preco}
           onChange={(e) => setPreco(e.target.value)}
           placeholder="Digite seu preço"
-        />
-
-        <Label htmlFor="senha">Token:</Label>
-        <Input
-          type="password"
-          id="senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="Digite seu token"
         />
 
         <Label htmlFor="data">Data:</Label>
