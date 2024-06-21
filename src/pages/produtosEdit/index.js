@@ -13,15 +13,17 @@ export default function Produto({ match }) {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [preco, setPreco] = useState('');
-  const [data, setData] = useState('');
 
   useEffect(() => {
     async function loadProduto() {
-      const response = await axios.get(`/produtos/${id}`);
-      setNome(response.data.nome);
-      setDescricao(response.data.descricao);
-      setPreco(response.data.preco);
-      setData(response.data.data);
+      try {
+        const response = await axios.get(`/produtos/${id}`);
+        setNome(response.data.nome);
+        setDescricao(response.data.descricao);
+        setPreco(response.data.preco);
+      } catch (err) {
+        toast.error('Erro ao carregar os dados do produto');
+      }
     }
 
     loadProduto();
@@ -31,15 +33,11 @@ export default function Produto({ match }) {
     e.preventDefault();
     let formErros = false;
 
-    const startDate = new Date('2000-01-01');
-    const endDate = new Date('2024-06-30');
-    const inputDate = new Date(data);
-
-    if (nome === '') {
+    if (nome.trim() === '') {
       formErros = true;
       toast.error('Campo nome está vazio');
     }
-    if (descricao === '') {
+    if (descricao.trim() === '') {
       formErros = true;
       toast.error('Campo descrição está vazio');
     }
@@ -51,16 +49,6 @@ export default function Produto({ match }) {
       formErros = true;
       toast.error('Campo preço deve ser positivo');
     }
-    // eslint-disable-next-line no-restricted-globals
-    if (data === '' || isNaN(inputDate.getTime())) {
-      formErros = true;
-      toast.error('Campo data está vazio ou inválido');
-    } else if (inputDate < startDate || inputDate > endDate) {
-      formErros = true;
-      toast.error(
-        'A data deve estar entre 1 de Janeiro de 2000 e 30 de Junho de 2024'
-      );
-    }
 
     if (formErros) return;
 
@@ -69,13 +57,12 @@ export default function Produto({ match }) {
         nome,
         descricao,
         preco,
-        data,
       });
+
       toast.success('Produto atualizado com sucesso!');
       history.push('/');
     } catch (erro) {
       const errors = get(erro, 'response.status', []);
-
       toast.error(errors);
     }
   }
@@ -109,14 +96,6 @@ export default function Produto({ match }) {
           value={preco}
           onChange={(e) => setPreco(e.target.value)}
           placeholder="Digite seu preço"
-        />
-        <Label htmlFor="data">Data:</Label>
-        <Input
-          type="date"
-          id="data"
-          value={data}
-          onChange={(e) => setData(e.target.value)}
-          placeholder="Digite a data"
         />
 
         <Button type="submit">Editar</Button>
