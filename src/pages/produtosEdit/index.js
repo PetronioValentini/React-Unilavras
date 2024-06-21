@@ -75,11 +75,8 @@ export default function Produto({ match }) {
       history.push('/');
     } catch (erro) {
       const errors = get(erro, 'response.status', []);
-      if (errors === 401) {
-        toast.error('Token incorreto.');
-      } else {
-        toast.error(errors);
-      }
+
+      toast.error(errors);
     }
   }
 
